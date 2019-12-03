@@ -1,0 +1,1 @@
+Familiarization with the Hamming method of error-correcting coding, which allows to detect and automatically correct errors that occur during the transmission of information.
