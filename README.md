@@ -5,8 +5,8 @@ Familiarization with the Hamming method of error-correcting coding, which allows
 # USAGE
 
 ```sh
-./hemingenc input.file output.hmng [8/12/16/32/64]
-./hemingdec input.hmng output.file [8/12/16/32/64]
+./hammingenc input.file output.hmng [8/12/16/32/64]
+./hammingdec input.hmng output.file [8/12/16/32/64]
 ```
 
 2019
