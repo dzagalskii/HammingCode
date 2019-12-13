@@ -31,16 +31,19 @@ void kontrolbit(int *kod, int lengh)
 
 void invert(int *byte)
 {
-    int tmp[8], g = 0;
-    for(int i = 7; i > -1; i--)
-        tmp[g++] = byte[i];
-    for(int i = 0; i < 8; i++)
-        byte[i] = tmp[i];
+    int i, t;
+    for(i = 0; i < 4; i++)
+    {
+        t = byte[i];
+        byte[i] = byte[7 - i];
+        byte[7 - i] = t;
+    }
 }
 
 void tobit(int x, int *byte)
 {
-    for(int i = 0; i < 8; i++)
+    int i;
+    for(i = 0; i < 8; i++)
     {
         byte[i] = x%2;
         x >>= 1;
@@ -50,8 +53,8 @@ void tobit(int x, int *byte)
 
 int todec(int *byte)
 {
-    int x = 0, st = 7;
-    for(int i = 0; i < 8; i++)
+    int i, x = 0, st = 7;
+    for(i = 0; i < 8; i++)
     {
         x += (byte[i]<<st);
         st--;
