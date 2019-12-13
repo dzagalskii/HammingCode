@@ -26,13 +26,7 @@ void kontrolbit(int *kod, int lengh)
         }
         i++;
     }
-    if(errorpos != 0)
-    {
-        if(kod[errorpos] == 0)
-            kod[errorpos] = 1;
-        else
-            kod[errorpos] = 0;
-    }
+    kod[errorpos] = (errorpos != 0) ? !kod[errorpos] : kod[errorpos];
 }
 
 void invert(int *byte)
