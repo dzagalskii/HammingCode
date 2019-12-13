@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 void kontrolbit(int *kod, int lengh)
 {
@@ -26,16 +25,6 @@ void kontrolbit(int *kod, int lengh)
     }
 }
 
-void tobit(int x, int *byte)
-{
-    for(int i = 0; i < 8; i++)
-    {
-        byte[i] = x%2;
-        x = x/2;
-    }
-    invert(byte);
-}
-
 void invert(int *byte)
 {
     int tmp[8], g = 0;
@@ -45,12 +34,22 @@ void invert(int *byte)
         byte[i] = tmp[i];
 }
 
+void tobit(int x, int *byte)
+{
+    for(int i = 0; i < 8; i++)
+    {
+        byte[i] = x%2;
+        x = x>>1;
+    }
+    invert(byte);
+}
+
 int todec(int *byte)
 {
     int x = 0, st = 7;
     for(int i = 0; i < 8; i++)
     {
-        x = x + byte[i]*pow(2, st);
+        x = x + (byte[i]<<st);
         st--;
     }
     return x;

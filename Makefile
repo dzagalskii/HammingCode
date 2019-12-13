@@ -1,6 +1,6 @@
 CC            = gcc
 CFLAGS        = -Wall -std=c99
-LDFLAGS       = -lm -s
+LDFLAGS       = -s
 PROGS         = hammingenc hammingdec
 
 all: $(PROGS)
