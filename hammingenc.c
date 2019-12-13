@@ -14,9 +14,9 @@ void kontrolbit(int *kod, int lengh)
                 for(int g = 0; g < i + 1; g++)
                 {
                     if((kod[start+g] != 2)&&(start+g < lengh))
-                        summ = summ + kod[start+g];
+                        summ += kod[start+g];
                 }
-                start = start + i + i + 2;
+                start += (i + i + 2);
             }
             kod[i] = summ%2;
             summ = 0;
@@ -39,7 +39,7 @@ void tobit(int x, int *byte)
     for(int i = 0; i < 8; i++)
     {
         byte[i] = x%2;
-        x = x>>1;
+        x >>= 1;
     }
     invert(byte);
 }
@@ -49,7 +49,7 @@ int todec(int *byte)
     int x = 0, st = 7;
     for(int i = 0; i < 8; i++)
     {
-        x = x + (byte[i]<<st);
+        x += (byte[i]<<st);
         st--;
     }
     return x;
