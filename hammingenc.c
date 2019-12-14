@@ -76,10 +76,9 @@ int main(int argc, char *argv[])
     if(c == 8)
     {
         int x, kod[12];
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             int g = 0;
             for(int i = 0; i < 12; i++)
@@ -102,18 +101,18 @@ int main(int argc, char *argv[])
                 }
                 fputc(todec(byte), t);
             }
+            x = fgetc(f);
         }
     }
     else if(c == 12)
     {
         int x, kod[17], g = 0, flag = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
+			tobit(x, byte);
             if(flag == 0)
             {
-                fseek(f, -1, SEEK_CUR);
-                x = fgetc(f);
-                tobit(x, byte);
                 for(int i = 0; i < 8; i++)
                 {
                     if((g != 0)&&(g != 1)&&(g != 3)&&(g != 7)&&(g != 15)&&(g != 31)&&(g != 63))
@@ -143,9 +142,6 @@ int main(int argc, char *argv[])
             }
             else if(flag == 1)
             {
-                fseek(f, -1, SEEK_CUR);
-                x = fgetc(f);
-                tobit(x, byte);
                 for(int i = 4; i < 8; i++)
                 {
                     if((g != 0)&&(g != 1)&&(g != 3)&&(g != 7)&&(g != 15)&&(g != 31)&&(g != 63))
@@ -189,15 +185,15 @@ int main(int argc, char *argv[])
                 }
                 g = 0;
             }
+            x = fgetc(f);
         }
     }
     else if(c == 16)
     {
         int x, kod[21], g = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             for(int i = 0; i < 8; i++)
             {
@@ -227,15 +223,15 @@ int main(int argc, char *argv[])
                 }
                 g = 0;
             }
+            x = fgetc(f);
         }
     }
     else if(c == 32)
     {
         int x, kod[38], g = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             for(int i = 0; i < 8; i++)
             {
@@ -265,15 +261,15 @@ int main(int argc, char *argv[])
                 }
                 g = 0;
             }
+            x = fgetc(f);
         }
     }
     else if(c == 64)
     {
         int x, kod[71], g = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             for(int i = 0; i < 8; i++)
             {
@@ -303,6 +299,7 @@ int main(int argc, char *argv[])
                 }
                 g = 0;
             }
+            x = fgetc(f);
         }
     }
     else

@@ -80,10 +80,9 @@ int main(int argc, char *argv[])
     if(c == 8)
     {
         int x, kod[12], g = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             for(int i = 0; i < 8; i++)
             {
@@ -104,15 +103,15 @@ int main(int argc, char *argv[])
                 fputc(todec(byte), t);
                 g = 0;
             }
+            x = fgetc(f);
         }
     }
     else if(c == 12)
     {
         int tmp[4], x, kod[17], g = 0, flag = 0, schet = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             kod[g] = byte[7];
             g++;
@@ -154,15 +153,15 @@ int main(int argc, char *argv[])
                 g = 0;
             }
             schet++; //костыль 3
+            x = fgetc(f);
         }
     }
     else if(c == 16)
     {
         int x, kod[21], g = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             for(int i = 0; i < 8; i++)
             {
@@ -184,15 +183,15 @@ int main(int argc, char *argv[])
                     }
                 }
             }
+            x = fgetc(f);
         }
     }
     else if(c == 32)
     {
         int x, kod[38], g = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             for(int i = 0; i < 8; i++)
             {
@@ -214,15 +213,15 @@ int main(int argc, char *argv[])
                     }
                 }
             }
+            x = fgetc(f);
         }
     }
     else if(c == 64)
     {
         int x, kod[71], g = 0;
-        while(fgetc(f) != EOF)
+        x = fgetc(f);
+        while(x != EOF)
         {
-            fseek(f, -1, SEEK_CUR);
-            x = fgetc(f);
             tobit(x, byte);
             for(int i = 0; i < 8; i++)
             {
@@ -244,6 +243,7 @@ int main(int argc, char *argv[])
                     }
                 }
             }
+            x = fgetc(f);
         }
     }
     else
