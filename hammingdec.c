@@ -108,6 +108,7 @@ int main(int argc, char *argv[])
     }
     else if(c == 12)
     {
+        fprintf(stderr, "WARNIND: with coding length %d end of file is not always processed correctly\n\n", c);
         int tmp[4], x, kod[17], g = 0, flag = 0, schet = 0;
         x = fgetc(f);
         while(x != EOF)
@@ -158,6 +159,7 @@ int main(int argc, char *argv[])
     }
     else if(c == 16)
     {
+        fprintf(stderr, "WARNIND: with coding length %d end of file is not always processed correctly\n\n", c);
         int x, kod[21], g = 0;
         x = fgetc(f);
         while(x != EOF)
@@ -188,6 +190,7 @@ int main(int argc, char *argv[])
     }
     else if(c == 32)
     {
+        fprintf(stderr, "WARNIND: with coding length %d end of file is not always processed correctly\n\n", c);
         int x, kod[38], g = 0;
         x = fgetc(f);
         while(x != EOF)
@@ -218,6 +221,7 @@ int main(int argc, char *argv[])
     }
     else if(c == 64)
     {
+        fprintf(stderr, "WARNIND: with coding length %d end of file is not always processed correctly\n\n", c);
         int x, kod[71], g = 0;
         x = fgetc(f);
         while(x != EOF)
@@ -248,7 +252,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        printf("Error: bad decoding length %d, maybe 8/12/16/32/64\n\n", c);
+        fprintf(stderr, "ERROR: bad coding length %d, maybe 8/12/16/32/64\n\n", c);
     }
     fclose(f);
     fclose(t);
