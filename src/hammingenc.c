@@ -73,6 +73,10 @@ int main(int argc, char *argv[])
     int c = 8;
     if (argc > 3) c = atoi(argv[3]);
     printf("coding length: %d\n\n", c);
+    char mc[2];
+    fwrite("HECC", 4, 1, t);
+    sprintf(mc, "%d", c);
+    fwrite(mc, 2, 1, t);
     if(c == 8)
     {
         int x, kod[12];

@@ -1,14 +1,15 @@
 CC            = gcc
 CFLAGS        = -Wall -std=c99
 LDFLAGS       = -s
+SRCP          = src
 PROGS         = hammingenc hammingdec
 
 all: $(PROGS)
 
-hammingenc: hammingenc.c
+hammingenc: $(SRCP)/hammingenc.c
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-hammingdec: hammingdec.c
+hammingdec: $(SRCP)/hammingdec.c
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 clean: $(PROGS)

@@ -75,6 +75,13 @@ int main(int argc, char *argv[])
     printf("coded: %s\n", argv[1]);
     printf("file: %s\n", argv[2]);
     int c = 8;
+    char mc[7] = {"\0"};
+    fread(mc, 6, 1, f);
+    if (strcmp(mc, "HECC8") && strcmp(mc, "HECC12") && 
+        strcmp(mc, "HECC16") && strcmp(mc, "HECC32") &&
+        strcmp(mc, "HECC64"))
+        fprintf(stderr, "WARNIND: Bad MAGIC number: %s\n\n", mc);        
+    sscanf(mc, "HECC%d", &c);
     if (argc > 3) c = atoi(argv[3]);
     printf("decoding length: %d\n\n", c);
     if(c == 8)
