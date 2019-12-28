@@ -77,11 +77,10 @@ int main(int argc, char *argv[])
     int c = 8;
     char mc[7] = {"\0"};
     fread(mc, 6, 1, f);
-    if (strcmp(mc, "HECC8") && strcmp(mc, "HECC12") && 
-        strcmp(mc, "HECC16") && strcmp(mc, "HECC32") &&
-        strcmp(mc, "HECC64"))
-        fprintf(stderr, "WARNIND: Bad MAGIC number: %s\n\n", mc);        
-    sscanf(mc, "HECC%d", &c);
+    if (!sscanf(mc, "HECC%d", &c))
+    {
+        fprintf(stderr, "WARNIND: Bad MAGIC word: %s\n\n", mc);
+    }
     if (argc > 3) c = atoi(argv[3]);
     printf("decoding length: %d\n\n", c);
     if(c == 8)
