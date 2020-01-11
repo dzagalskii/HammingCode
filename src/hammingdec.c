@@ -3,15 +3,15 @@
 
 void kontrolbit(int *kod, int lengh)
 {
-    int i = 0, summ = 0, errorpos = 0;
+    int i = 0, summ = 0, errorpos = 0, start, g;
     while(i < lengh)
     {
         if((i+1 == 1)||(i+1 == 2)||(i+1 == 4)||(i+1 == 8)||(i+1 == 16)||(i+1 == 32)||(i+1 == 64))
         {
-            int start = i;
+            start = i;
             while(start < lengh)
             {
-                for(int g = 0; g < i + 1; g++)
+                for(g = 0; g < i + 1; g++)
                 {
                     if((start+g != i)&&(start+g < lengh))
                         summ += kod[start+g];
@@ -64,18 +64,21 @@ int todec(int *byte)
 
 int main(int argc, char *argv[])
 {
+    FILE *f, *t;
+    int byte[8];
+    int c = 8;
+    char mc[7] = {"\0"};
+    int x, i, kod[71], g;
+    int tmp[4], flag, schet;
     if (argc < 3)
     {
         printf("Usage: %s input.hmng output.file [8/12/16/32/64]\n", argv[0]);
         return 0;
     }
-    FILE *f = fopen(argv[1], "rb");
-    FILE *t = fopen(argv[2], "w+b");
-    int byte[8];
+    f = fopen(argv[1], "rb");
+    t = fopen(argv[2], "w+b");
     printf("coded: %s\n", argv[1]);
     printf("file: %s\n", argv[2]);
-    int c = 8;
-    char mc[7] = {"\0"};
     fread(mc, 6, 1, f);
     if (sscanf(mc, "HECC%d", &c) <= 0)
     {
@@ -85,12 +88,12 @@ int main(int argc, char *argv[])
     printf("decoding length: %d\n\n", c);
     if(c == 8)
     {
-        int x, kod[12], g = 0;
+        g = 0;
         x = fgetc(f);
         while(x != EOF)
         {
             tobit(x, byte);
-            for(int i = 0; i < 8; i++)
+            for(i = 0; i < 8; i++)
             {
                 if((i != 0)&&(i != 1))
                     kod[g++] = byte[i];
@@ -99,7 +102,7 @@ int main(int argc, char *argv[])
             {
                 kontrolbit(kod, 12);
                 g = 0;
-                for(int i = 0; i < 12; i++)
+                for(i = 0; i < 12; i++)
                 {
                     if((i+1 != 1)&&(i+1 != 2)&&(i+1 != 4)&&(i+1 != 8))
                     {
@@ -115,7 +118,9 @@ int main(int argc, char *argv[])
     else if(c == 12)
     {
         fprintf(stderr, "WARNING: with coding length %d end of file is not always processed correctly\n\n", c);
-        int tmp[4], x, kod[17], g = 0, flag = 0, schet = 0;
+        g = 0;
+        flag = 0;
+        schet = 0;
         x = fgetc(f);
         while(x != EOF)
         {
@@ -129,13 +134,13 @@ int main(int argc, char *argv[])
                 g = 0;
                 if(flag == 1) //костыль
                 {
-                    for(int i = 0; i < 4; i++)
+                    for(i = 0; i < 4; i++)
                     {
                         byte[g++] = tmp[i];
                     }
                     flag = 0;
                 }
-                for(int i = 0; i < 17; i++)
+                for(i = 0; i < 17; i++)
                 {
                     if((i+1 != 1)&&(i+1 != 2)&&(i+1 != 4)&&(i+1 != 8)&&(i+1 != 16)&&(i+1 != 32)&&(i+1 != 64))
                         byte[g++] = kod[i];
@@ -145,7 +150,7 @@ int main(int argc, char *argv[])
                         g = 0;
                         if((flag == 0)&&(schet%2 == 0)) //костыль 2
                         {
-                            for(int i = 12; i < 17; i++)
+                            for(i = 12; i < 17; i++)
                             {
                                 if(i+1 != 16)
                                 {
@@ -166,12 +171,12 @@ int main(int argc, char *argv[])
     else if(c == 16)
     {
         fprintf(stderr, "WARNING: with coding length %d end of file is not always processed correctly\n\n", c);
-        int x, kod[21], g = 0;
+        g = 0;
         x = fgetc(f);
         while(x != EOF)
         {
             tobit(x, byte);
-            for(int i = 0; i < 8; i++)
+            for(i = 0; i < 8; i++)
             {
                 if(i != 0)
                     kod[g++] = byte[i];
@@ -180,7 +185,7 @@ int main(int argc, char *argv[])
             {
                 kontrolbit(kod, 21);
                 g = 0;
-                for(int i = 0; i < 21; i++)
+                for(i = 0; i < 21; i++)
                 {
                     if((i+1 != 1)&&(i+1 != 2)&&(i+1 != 4)&&(i+1 != 8)&&(i+1 != 16)&&(i+1 != 32)&&(i+1 != 64))
                         byte[g++] = kod[i];
@@ -197,12 +202,12 @@ int main(int argc, char *argv[])
     else if(c == 32)
     {
         fprintf(stderr, "WARNING: with coding length %d end of file is not always processed correctly\n\n", c);
-        int x, kod[38], g = 0;
+        g = 0;
         x = fgetc(f);
         while(x != EOF)
         {
             tobit(x, byte);
-            for(int i = 0; i < 8; i++)
+            for(i = 0; i < 8; i++)
             {
                 if((i == 6)||(i == 7))
                     kod[g++] = byte[i];
@@ -211,7 +216,7 @@ int main(int argc, char *argv[])
             {
                 kontrolbit(kod, 38);
                 g = 0;
-                for(int i = 0; i < 38; i++)
+                for(i = 0; i < 38; i++)
                 {
                     if((i+1 != 1)&&(i+1 != 2)&&(i+1 != 4)&&(i+1 != 8)&&(i+1 != 16)&&(i+1 != 32)&&(i+1 != 64))
                         byte[g++] = kod[i];
@@ -228,12 +233,12 @@ int main(int argc, char *argv[])
     else if(c == 64)
     {
         fprintf(stderr, "WARNING: with coding length %d end of file is not always processed correctly\n\n", c);
-        int x, kod[71], g = 0;
+        g = 0;
         x = fgetc(f);
         while(x != EOF)
         {
             tobit(x, byte);
-            for(int i = 0; i < 8; i++)
+            for(i = 0; i < 8; i++)
             {
                 if(i == 7)
                     kod[g++] = byte[i];
@@ -242,7 +247,7 @@ int main(int argc, char *argv[])
             {
                 kontrolbit(kod, 71);
                 g = 0;
-                for(int i = 0; i < 71; i++)
+                for(i = 0; i < 71; i++)
                 {
                     if((i+1 != 1)&&(i+1 != 2)&&(i+1 != 4)&&(i+1 != 8)&&(i+1 != 16)&&(i+1 != 32)&&(i+1 != 64))
                         byte[g++] = kod[i];
